@@ -3,6 +3,128 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/paddingDefault"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/lblAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addCurrency" />
+
+    <EditText
+        android:id="@+id/inputAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:imeOptions="actionDone"
+        android:inputType="numberDecimal"
+        android:selectAllOnFocus="true"
+        android:text="@string/inputAmountStr"
+        android:textAlignment="textEnd" />
+
+    <TextView
+        android:id="@+id/lblFromCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/fromCurrency" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp">
+
+
+        <RadioGroup
+            android:id="@+id/rdgInCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdbDollar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dollar" />
+
+            <RadioButton
+                android:id="@+id/rdbEuro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/euro" />
+
+            <RadioButton
+                android:id="@+id/rdbPound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pound" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/imgIn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_dollar" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/lblToCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/toCurrency" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp">
+
+        <RadioGroup
+            android:id="@+id/rdgOutCurrency"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdbOutDollar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dollar" />
+
+            <RadioButton
+                android:id="@+id/rdbOutEuro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/euro" />
+
+            <RadioButton
+                android:id="@+id/rdbOutPound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pound" />
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/imgOut"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_dollar" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/exchangeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btnText" />
+
 
 </LinearLayout>
