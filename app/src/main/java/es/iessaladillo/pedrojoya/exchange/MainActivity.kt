@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -18,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private var conversionValue = 0.0
     private var inCurrencyId = R.id.rdbEuro
     private var OutCurrencyId = R.id.rdbOutDollar
-    private var inImgId = Currency.EURO.drawableResId
-    private var OutImgId = Currency.DOLLAR.drawableResId
+    private var inImgId = Currency.EURO.symbol
+    private var OutImgId = Currency.DOLLAR.symbol
     private lateinit var input: EditText
     private lateinit var rdbInEuro: RadioButton
     private lateinit var rdbInPound: RadioButton
@@ -72,12 +71,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        //Predefinimos los check y las imágenes
         rdbInEuro.isChecked = true
         imgIn.setImageResource(Currency.EURO.drawableResId)
         rdbOutDollar.isChecked = true
-
-        //Definimos el changeListener de los checkButtons
 
         rdgInCurrency.setOnCheckedChangeListener { radioGroup: RadioGroup, checkedId: Int ->
             defineInCurrencyImg(checkedId)
@@ -87,23 +83,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         textChangedListener()
-
-        //Definimos el clickListener del botón
-
-        binding.exchangeButton.setOnClickListener { v ->
-            calculate()
-
-        }
+        binding.exchangeButton.setOnClickListener { v -> calculate() }
 
     }
 
     private fun textChangedListener() {
         input.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
                 if (input.text.isBlank()) {
@@ -116,10 +104,7 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        input.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) = input.selectAll()
-
-        })
+        input.setOnClickListener { input.selectAll() }
     }
 
 
@@ -127,6 +112,7 @@ class MainActivity : AppCompatActivity() {
         when (checkedId) {
             R.id.rdbOutDollar -> {
                 imgOut.setImageResource(Currency.DOLLAR.drawableResId)
+                OutImgId = Currency.DOLLAR.symbol
                 rdbInDollar.isChecked = false
                 rdbInEuro.isEnabled = true
                 rdbInPound.isEnabled = true
@@ -134,6 +120,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.rdbOutEuro -> {
                 imgOut.setImageResource(Currency.EURO.drawableResId)
+                OutImgId = Currency.EURO.symbol
                 rdbInDollar.isEnabled = true
                 rdbInEuro.isEnabled = false
                 rdbInPound.isEnabled = true
@@ -141,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.rdbOutPound -> {
                 imgOut.setImageResource(Currency.POUND.drawableResId)
+                OutImgId = Currency.POUND.symbol
                 rdbInDollar.isEnabled = true
                 rdbInEuro.isEnabled = true
                 rdbInPound.isEnabled = false
@@ -154,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         when (checkedId) {
             R.id.rdbDollar -> {
                 imgIn.setImageResource(Currency.DOLLAR.drawableResId)
+                inImgId = Currency.DOLLAR.symbol
                 rdbOutDollar.isEnabled = false
                 rdbOutEuro.isEnabled = true
                 rdbOutPound.isEnabled = true
@@ -161,6 +150,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.rdbEuro -> {
                 imgIn.setImageResource(Currency.EURO.drawableResId)
+                inImgId = Currency.EURO.symbol
                 rdbOutDollar.isEnabled = true
                 rdbOutEuro.isEnabled = false
                 rdbOutPound.isEnabled = true
@@ -169,6 +159,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.rdbPound -> {
                 imgIn.setImageResource(Currency.POUND.drawableResId)
+                inImgId = Currency.POUND.symbol
                 rdbOutDollar.isEnabled = true
                 rdbOutEuro.isEnabled = true
                 rdbOutPound.isEnabled = false
@@ -195,7 +186,12 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(
             this,
-            "${String.format("%.2f", value)} = ${String.format("%.2f", conversionValue)}",
+            "${String.format("%.2f", value)} $inImgId = ${
+                String.format(
+                    "%.2f",
+                    conversionValue
+                )
+            } $OutImgId",
             Toast.LENGTH_SHORT
         ).show()
 
@@ -206,6 +202,7 @@ class MainActivity : AppCompatActivity() {
         if (view != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
+
         }
 
     }
